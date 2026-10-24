@@ -1,0 +1,195 @@
+.app {
+  width: min(100% - 32px, 680px);
+  margin: 48px auto;
+}
+
+header {
+  margin-bottom: 28px;
+}
+
+header h1,
+.note-form h2,
+.notes h2,
+.note h3 {
+  margin: 0;
+}
+
+header h1 {
+  font-size: 30px;
+}
+
+header p,
+.empty {
+  color: #737b75;
+}
+
+.note-form,
+.note {
+  padding: 20px;
+  border: 1px solid #e3e7e2;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.note-form h2,
+.notes h2 {
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+
+.note-form > input,
+.note-form textarea {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 11px;
+  border: 1px solid #dfe4df;
+  border-radius: 6px;
+  color: #26352d;
+  background: #fff;
+  font: inherit;
+}
+
+.note-form textarea {
+  resize: vertical;
+}
+
+.form-footer,
+.note-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.form-footer label {
+  display: grid;
+  gap: 5px;
+  color: #737b75;
+  font-size: 12px;
+}
+
+.form-footer input {
+  max-width: 190px;
+  border: 0;
+  color: #26352d;
+  font: inherit;
+  font-size: 13px;
+}
+
+.save,
+.cancel {
+  padding: 9px 13px;
+  border: 0;
+  border-radius: 6px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.save {
+  color: #fff;
+  background: #39765e;
+}
+
+.save:hover {
+  background: #2e624e;
+}
+
+.cancel {
+  margin-right: 6px;
+  color: #59645d;
+  background: #eef1ed;
+}
+
+.notes {
+  margin-top: 32px;
+}
+
+.notes h2 span {
+  color: #737b75;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.note {
+  margin-bottom: 12px;
+}
+
+.note-date {
+  padding: 0;
+  border: 0;
+  color: #737b75;
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.note-date:hover {
+  color: #39765e;
+  text-decoration: underline;
+}
+
+.actions {
+  display: flex;
+  gap: 5px;
+}
+
+.actions button {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 0;
+  border-radius: 5px;
+  color: #59645d;
+  background: #f1f3f0;
+  cursor: pointer;
+}
+
+.actions button:hover {
+  color: #39765e;
+  background: #e7eee9;
+}
+
+.actions button:last-child:hover {
+  color: #b44842;
+  background: #f7e9e7;
+}
+
+.actions svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.note h3 {
+  margin-top: 14px;
+  font-size: 16px;
+}
+
+.note > p {
+  margin-bottom: 0;
+  color: #59645d;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 480px) {
+  .app {
+    margin-top: 28px;
+  }
+
+  .note-form,
+  .note {
+    padding: 15px;
+  }
+
+  .form-footer {
+    align-items: flex-end;
+  }
+}
