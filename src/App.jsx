@@ -17,6 +17,7 @@ function App() {
   const [content, setContent] = useState('')
   const [dateTime, setDateTime] = useState(now)
   const [editingId, setEditingId] = useState(null)
+  const [openNote, setOpenNote] = useState(null)
 
   useEffect(() => {
     try {
@@ -25,6 +26,17 @@ function App() {
       console.error('Unable to save notes.', error)
     }
   }, [notes])
+
+  useEffect(() => {
+    if (!openNote) return
+
+    function closeOnEscape(event) {
+      if (event.key === 'Escape') setOpenNote(null)
+    }
+
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [openNote])
 
   function clearForm() {
     setTitle('')
@@ -47,6 +59,7 @@ function App() {
   }
 
   function editNote(note) {
+    setOpenNote(null)
     setTitle(note.title)
     setContent(note.content)
     setDateTime(note.dateTime)
@@ -57,6 +70,7 @@ function App() {
   function deleteNote(id) {
     setNotes(notes.filter((note) => note.id !== id))
     if (editingId === id) clearForm()
+    if (openNote?.id === id) setOpenNote(null)
   }
 
   return (
@@ -110,7 +124,7 @@ function App() {
         ) : notes.map((note) => (
           <article className="note" key={note.id}>
             <div className="note-heading">
-              <button className="note-date" onClick={() => editNote(note)} type="button">
+              <button className="note-date" onClick={() => setOpenNote(note)} type="button">
                 {new Date(note.dateTime).toLocaleString()}
               </button>
               <div className="actions">
@@ -122,11 +136,35 @@ function App() {
                 </button>
               </div>
             </div>
-            <h3>{note.title}</h3>
-            <p>{note.content}</p>
+            <button className="note-open" onClick={() => setOpenNote(note)} type="button">
+              <span className="note-title">{note.title}</span>
+              <span className="note-preview">{note.content}</span>
+            </button>
           </article>
         ))}
       </section>
+
+      {openNote && (
+        <div className="note-overlay" onClick={() => setOpenNote(null)}>
+          <article
+            aria-labelledby="full-note-title"
+            aria-modal="true"
+            className="full-note"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+          >
+            <div className="note-heading">
+              <p className="full-note-date">{new Date(openNote.dateTime).toLocaleString()}</p>
+              <button aria-label="Close note" className="close-note" onClick={() => setOpenNote(null)} type="button">
+                ×
+              </button>
+            </div>
+            <h2 id="full-note-title">{openNote.title}</h2>
+            <p className="full-note-content">{openNote.content}</p>
+            <button className="save" onClick={() => editNote(openNote)} type="button">Edit note</button>
+          </article>
+        </div>
+      )}
     </main>
   )
 }
